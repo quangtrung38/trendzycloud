@@ -1,0 +1,28 @@
+{
+    "name": "quangtrung38/trendzycloud",
+    "description": "Trendzy Cloud Upload",
+    "license": "MIT",
+    "keywords": ["laravel", "trendzycloud", "quangtrung38"],
+    "authors": [
+        {
+            "name": "Trung Tran",
+            "email": "gkquangtrung@gmail.com",
+            "homepage": "https://fb.me/gkquangtrung"
+        }
+    ],
+    "require": {
+        "php": ">=5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "quangtrung38\\trendzycloud\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "quangtrung38\\trendzycloud\\TrendzyCloudServiceProvider"
+            ]
+        }
+    }
+}

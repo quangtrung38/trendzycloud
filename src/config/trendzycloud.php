@@ -1,8 +1,5 @@
 <?php
 return [
-    'cloud' => [
-        'url'           => 'https://cloud.trendzy.vn',
-        'token'         => '',
-        'shop_id'       => ''
-    ]
+    'base_api'     => 'https://cloud.trendzy.vn/api',
+    'token'        => '',
 ];

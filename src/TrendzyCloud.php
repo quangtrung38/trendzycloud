@@ -1,16 +1,12 @@
 <?php
 
-namespace Jacksonit\Shipping;
+namespace quangtrung38\trendzycloud;
 
-use Validator;
 use GuzzleHttp\Client;
-
 
 class TrendzyCloud
 {
-    public $url             = '';
-    public $token           = '';
-    public $shop_id         = '';
+    public $token = '';
 
     /**
      * Create new
@@ -19,38 +15,175 @@ class TrendzyCloud
      */
     public function __construct()
     {
-        $this->url              = config('trendzycloud.cloud.url');
-        //$this->token            = config('shipping.ghn.token');
-        //$this->shop_id          = config('shipping.ghn.shop_id');
+        $this->token = config('trendzycloud.token');
     }
 
     /**
      *
-     * @param array $input
+     * @param array $request
      * @return Response
      */
-    public function shippingFee($image)
+    public function uploadImage($request)
     {
         try
         {
+            $file = $request['file'];
 
-            $client = new Client();
-
-            $response = $client->request('POST', $this->url, [
+            $options = [
                 'multipart' => [
                     [
-                        'name'     => 'FileContents',
-                        'contents' => $image,
-                        'filename' => $name
+                        'Content-type' => 'multipart/form-data',
+                        'name'         => 'image',
+                        'contents'     => fopen($file->getPathname(), 'r'),
+                        'filename'     => $file->getClientOriginalName(),
+                        'Mime-Type'    => $file->getmimeType()
+                    ],
+                    [
+                        'name' => 'userId',
+                        'contents' => $request['userId']
                     ]
-                ],
+                ]
+            ];
+
+            $client = new Client([
+                'headers' => [ 'Content-Type' => 'application/json', 'token' => $this->token ]
             ]);
+            $response = $client->request('POST', config('trendzycloud.base_api') . '/image', $options);
 
             $records = json_decode($response->getBody()->getContents());
 
-            if(empty($records) || $records->code != 200 || $records->message != 'Success') throw new \Exception('GHN Error');
+            return ['result'=> 'OK', 'records' => $records->data];
+        } catch (\Exception $e) {
+            return ['result'=> 'NG', 'message' => $e->getMessage()];
+        }
+    }
 
-            return ['result'=> 'OK', 'records' => ['total' => $records->data->total, 'service_fee' => $records->data->service_fee, 'coupon_value' => $records->data->coupon_value]];
+    public function deleteImage($request)
+    {
+        try
+        {
+            $client = new Client([
+                'headers' => [ 'Content-Type' => 'application/json', 'token' => $this->token ]
+            ]);
+            $response = $client->delete(config('trendzycloud.base_api') . '/image/' . $request['key'], []);
+
+            $records = json_decode($response->getBody()->getContents());
+
+            return ['result'=> 'OK', 'records' => $records];
+        } catch (\Exception $e) {
+            return ['result'=> 'NG', 'message' => $e->getMessage()];
+        }
+    }
+
+    /**
+     *
+     * @param array $request
+     * @return Response
+     */
+    public function uploadVideo($request)
+    {
+        try
+        {
+            $file = $request['file'];
+
+            $data = [
+                'multipart' => [
+                    [
+                        'Content-type' => 'multipart/form-data',
+                        'name'         => 'video',
+                        'contents'     => fopen($file->getPathname(), 'r'),
+                        'filename'     => $file->getClientOriginalName(),
+                        'Mime-Type'    => $file->getmimeType()
+                    ],
+                    [
+                        'name' => 'userId',
+                        'contents' => $request['userId']
+                    ]
+                ]
+            ];
+
+            $client = new Client([
+                'headers' => [ 'Content-Type' => 'application/json', 'token' => $this->token ]
+            ]);
+            $response = $client->request('POST', config('trendzycloud.base_api') . '/video', $data);
+
+            $records = json_decode($response->getBody()->getContents());
+
+            return ['result'=> 'OK', 'records' => $records->data];
+        } catch (\Exception $e) {
+            return ['result'=> 'NG', 'message' => $e->getMessage()];
+        }
+    }
+
+    public function deleteVideo($request)
+    {
+        try
+        {
+            $client = new Client([
+                'headers' => [ 'Content-Type' => 'application/json', 'token' => $this->token ]
+            ]);
+            $response = $client->delete(config('trendzycloud.base_api') . '/video/' . $request['key'], []);
+
+            $records = json_decode($response->getBody()->getContents());
+
+            return ['result'=> 'OK', 'records' => $records];
+        } catch (\Exception $e) {
+            return ['result'=> 'NG', 'message' => $e->getMessage()];
+        }
+    }
+
+    /**
+     *
+     * @param array $request
+     * @return Response
+     */
+    public function uploadDocument($request)
+    {
+        try
+        {
+            $file = $request['file'];
+
+            $data = [
+                'multipart' => [
+                    [
+                        'Content-type' => 'multipart/form-data',
+                        'name'         => 'document',
+                        'contents'     => fopen($file->getPathname(), 'r'),
+                        'filename'     => $file->getClientOriginalName(),
+                        'Mime-Type'    => $file->getmimeType()
+                    ],
+                    [
+                        'name' => 'userId',
+                        'contents' => $request['userId']
+                    ]
+                ]
+            ];
+
+            $client = new Client([
+                'headers' => [ 'Content-Type' => 'application/json', 'token' => $this->token ]
+            ]);
+            $response = $client->request('POST', config('trendzycloud.base_api') . '/document', $data);
+
+            $records = json_decode($response->getBody()->getContents());
+
+            return ['result'=> 'OK', 'records' => $records->data];
+        } catch (\Exception $e) {
+            return ['result'=> 'NG', 'message' => $e->getMessage()];
+        }
+    }
+
+    public function deleteDocument($request)
+    {
+        try
+        {
+            $client = new Client([
+                'headers' => [ 'Content-Type' => 'application/json', 'token' => $this->token ]
+            ]);
+            $response = $client->delete(config('trendzycloud.base_api') . '/document/' . $request['key'], []);
+
+            $records = json_decode($response->getBody()->getContents());
+
+            return ['result'=> 'OK', 'records' => $records];
         } catch (\Exception $e) {
             return ['result'=> 'NG', 'message' => $e->getMessage()];
         }

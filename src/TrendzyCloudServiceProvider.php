@@ -1,6 +1,6 @@
 <?php
 
-namespace Jacksonit\Shipping;
+namespace quangtrung38\trendzycloud;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -14,7 +14,7 @@ use Illuminate\Support\ServiceProvider;
  * @author Trung Tran <gkquangtrung@gmail.com>
  * @package quangtrung38/trendzycloud
  */
-class ShippingServiceProvider extends ServiceProvider
+class TrendzyCloudServiceProvider extends ServiceProvider
 {
     public function boot()
     {

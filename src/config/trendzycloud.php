@@ -1,5 +1,5 @@
 <?php
 return [
-    'base_api'     => 'https://cloud.trendzy.vn/api',
+    'url'     => 'https://domain.com/api',
     'token'        => '',
 ];

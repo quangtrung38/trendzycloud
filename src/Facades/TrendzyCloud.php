@@ -1,6 +1,6 @@
 <?php
 
-namespace Jacksonit\Shipping\Facades;
+namespace quangtrung38\trendzycloud\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

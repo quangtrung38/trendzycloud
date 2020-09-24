@@ -48,7 +48,7 @@ class TrendzyCloud
             $client = new Client([
                 'headers' => [ 'Content-Type' => 'application/json', 'token' => $this->token ]
             ]);
-            $response = $client->request('POST', config('trendzycloud.base_api') . '/image', $options);
+            $response = $client->request('POST', config('trendzycloud.url') . '/image', $options);
 
             $records = json_decode($response->getBody()->getContents());
 
@@ -65,7 +65,7 @@ class TrendzyCloud
             $client = new Client([
                 'headers' => [ 'Content-Type' => 'application/json', 'token' => $this->token ]
             ]);
-            $response = $client->delete(config('trendzycloud.base_api') . '/image/' . $request['key'], []);
+            $response = $client->delete(config('trendzycloud.url') . '/image/' . $request['key'], []);
 
             $records = json_decode($response->getBody()->getContents());
 
@@ -105,7 +105,7 @@ class TrendzyCloud
             $client = new Client([
                 'headers' => [ 'Content-Type' => 'application/json', 'token' => $this->token ]
             ]);
-            $response = $client->request('POST', config('trendzycloud.base_api') . '/video', $data);
+            $response = $client->request('POST', config('trendzycloud.url') . '/video', $data);
 
             $records = json_decode($response->getBody()->getContents());
 
@@ -122,7 +122,7 @@ class TrendzyCloud
             $client = new Client([
                 'headers' => [ 'Content-Type' => 'application/json', 'token' => $this->token ]
             ]);
-            $response = $client->delete(config('trendzycloud.base_api') . '/video/' . $request['key'], []);
+            $response = $client->delete(config('trendzycloud.url') . '/video/' . $request['key'], []);
 
             $records = json_decode($response->getBody()->getContents());
 
@@ -162,7 +162,7 @@ class TrendzyCloud
             $client = new Client([
                 'headers' => [ 'Content-Type' => 'application/json', 'token' => $this->token ]
             ]);
-            $response = $client->request('POST', config('trendzycloud.base_api') . '/document', $data);
+            $response = $client->request('POST', config('trendzycloud.url') . '/document', $data);
 
             $records = json_decode($response->getBody()->getContents());
 
@@ -179,7 +179,7 @@ class TrendzyCloud
             $client = new Client([
                 'headers' => [ 'Content-Type' => 'application/json', 'token' => $this->token ]
             ]);
-            $response = $client->delete(config('trendzycloud.base_api') . '/document/' . $request['key'], []);
+            $response = $client->delete(config('trendzycloud.url') . '/document/' . $request['key'], []);
 
             $records = json_decode($response->getBody()->getContents());
 
